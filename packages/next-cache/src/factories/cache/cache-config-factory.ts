@@ -43,6 +43,9 @@ export function unstable_getCacheConfigFactory(
   getPayloadConfig: GetPayloadConfig
 ) {
   const getCacheConfig = cacheConfigFactory(getPayloadConfig);
+  /**
+   * Caches config at build time with deploymentID for instant access
+   */
   const unstable_getCollectionCacheConfig = (slug: string) => {
     return unstable_cache(getCacheConfig, [
       "collection-cache",

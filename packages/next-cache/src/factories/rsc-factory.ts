@@ -35,6 +35,9 @@ export const findManyFactory = (
 
   const find = _findFactory(getPayload);
 
+  /**
+   * Deployment wide caching for `payload.find()`
+   */
   const cached_findMany = async <T extends CollectionKeys>(
     args: FindArgs & { collection: T },
     options?: RevalidateOptions
@@ -71,6 +74,9 @@ export const findOneFactory = (
 
   const find = _findFactory(getPayload);
 
+  /**
+   * Deployment wide caching for `payload.find({limit: 1})`
+   */
   const cached_findOne = async <T extends CollectionKeys>(
     args: FindArgs & { collection: T },
     options?: RevalidateOptions
@@ -110,7 +116,9 @@ export const findByIdFactory = (
     unstable_getCacheConfigFactory(getPayloadConfig);
 
   const findByID = _findByIDFactory(getPayload);
-
+  /**
+   * Deployment wide caching for `payload.findByID()`
+   */
   const cached_findByID = async <T extends CollectionKeys>(
     args: FindByIDArgs & { collection: T },
     options?: RevalidateOptions
@@ -144,6 +152,9 @@ export const findByIdFactory = (
 export const findGlobalFactory = (getPayload: GetPayload) => {
   const findGlobal = _findGlobalFactory(getPayload);
 
+  /**
+   * Deployment wide caching for `payload.findGlobal()`
+   */
   const cached_findGlobal = async <T extends GlobalKeys>(
     args: GlobalArgs & { slug: T },
     options?: RevalidateOptions

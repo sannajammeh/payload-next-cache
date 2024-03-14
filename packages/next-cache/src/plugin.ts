@@ -35,6 +35,24 @@ interface PluginOptions {
   collections: Record<string, CollectionCacheConfig>;
 }
 
+/**
+ * Payload plugin to add auto cache configuration to collections
+ *
+ * @example
+ * // payload.config.ts
+ * import { nextCache } from '@payloadcms/next-cache/plugin';
+ * {
+ *  // ...config,
+ *  plugins: [
+ *   nextCache({
+ *    collections: {
+ *     [Pages.slug]: {
+ *       logging: "development",
+ *     }
+ *   })
+ *  ]
+ * }
+ */
 export const nextCache =
   (options: PluginOptions): Plugin =>
   (initialConfig) => {
