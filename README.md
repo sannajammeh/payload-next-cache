@@ -220,3 +220,5 @@ const pages = await payloadRSC.find({ collection: "pages" }, { logging: true });
 
 - No support for relationships (yet)
 - Field level revalidation is not supported (yet)
+  I.e if a field is updated, the `collection.slug` tag will also be invalidated.
+  A field level revlidation hook is in the works
