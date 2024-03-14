@@ -2,6 +2,26 @@
 
 This is the monorepo for a Next.js cache POC with the Payload local API
 
+## API Surface
+
+Every query method is always cache tagged. To opt out and still benefit from request level caching use `payloadRSC.getPayload()`
+
+```ts
+import { createPayloadRSC } from "@payloadcms/next-cache";
+
+export const payloadRSC = createPayloadRSC({ config });
+
+payloadRSC.find(); // uses `next/cache`
+payloadRSC.findOne(); // uses `next/cache`
+payloadRSC.findByID(); // uses `next/cache`
+payloadRSC.findGlobal(); // uses `next/cache`
+
+/* Returns the native Payload instance under React's `cache` boundary */
+payloadRSC.getPayload();
+/* Returns the Payload config under React's `cache` boundary */
+payloadRSC.getPayloadConfig(); // For super advanced use cases
+```
+
 ## Setup
 
 Define a `payload.rsc.ts` file in the src directory.
@@ -40,7 +60,7 @@ const pages = await payloadRSC.find({
   collection: "pages",
 }); // tagged with ['pages']
 
-const page = await payloadRSC.findById({
+const page = await payloadRSC.findByID({
     collection: "pages"
     id: "65ecca816ddd3a5dcecfef62"
 }) // tagged with ['pages', 'pages-65ecca816ddd3a5dcecfef62']
