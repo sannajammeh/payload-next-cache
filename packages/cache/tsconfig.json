@@ -1,0 +1,11 @@
+{
+  "extends": "@private/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "types": ["react/canary"],
+    "skipLibCheck": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+}

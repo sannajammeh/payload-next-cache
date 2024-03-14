@@ -25,7 +25,8 @@
     "payload": "3.0.0-alpha.48",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "0.33.2"
+    "sharp": "0.33.2",
+    "@payloadcms/next-cache": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
