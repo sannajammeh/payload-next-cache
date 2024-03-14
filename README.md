@@ -124,6 +124,8 @@ On document update the cache will be invalidated based on the tags
 
 Each collection key in the `nextCache` plugin will accepts manual tagging as well.
 
+#### Register global tags
+
 ```tsx
  plugins: [
     nextCache({
@@ -131,17 +133,49 @@ Each collection key in the `nextCache` plugin will accepts manual tagging as wel
         pages: {
           logging: 'development',
           revalidate: 3600,
-          tags: ["some-global-tag"]
+          tags: ["some-tag"]
         },
       },
     }),
   ],
 ```
 
-On update the cache will be invalidated based on the tags
+Now you can query based on the global tag and that query will be cached. Useful if you have multiple collections that you wish to revalidate if either changes
 
-```ts
-[payload-cache] Revalidated [ 'pages', 'some-global-tag' ] // or every 3600 seconds
+```tsx
+payloadRSC.find({ collection: "pages" }, { tags: ["some-tag"] });
+// tagged with ['pages', 'some-tag']
+// Revalidates every 3600 seconds or when 'some-tag' is invalidated
+```
+
+#### Register query taggable fields
+
+If a field is not unique or indexed, you can still tag the query with a custom tag
+
+```tsx
+plugins: [
+    nextCache({
+      collections: {
+        pages: {
+          logging: 'development',
+          revalidate: 3600,
+          fields: ["myField"] // revalides tags: ['pages', 'pages-<FIELD_VALUE>']
+        },
+      },
+    }),
+  ],
+
+```
+
+```tsx
+const pages = await payloadRSC.find({
+  collection: "pages",
+  where: {
+    myField: {
+      equals: "some-value",
+    },
+  },
+}); // tagged with ['pages', 'pages-<FIELD_VALUE>]
 ```
 
 In your queries you can also tag the query with a custom tag
@@ -153,7 +187,7 @@ const pages = await payloadRSC.find(
   },
   {
     tags: ["some-custom-tag"],
-    revalidate: 300,
+    revalidate: 3600,
   }
 ); // tagged with ['pages', 'some-custom-tag']
 ```
@@ -181,3 +215,8 @@ Logging can also be overridden in the query
 ```tsx
 const pages = await payloadRSC.find({ collection: "pages" }, { logging: true }); // logs on all environments
 ```
+
+## Limitations
+
+- No support for relationships (yet)
+- Field level revalidation is not supported (yet)
