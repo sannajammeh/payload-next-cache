@@ -1,11 +1,21 @@
 import React from 'react'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import Link from 'next/link'
+import { payloadRSC } from '@/payload.rsc'
 
-const Example: React.FC = async () => {
-  const payload = await getPayload({ config: configPromise })
-  const url = payload.getAdminURL()
-  return <div>The admin panel is running at: {url}</div>
+const Pages = async () => {
+  const pages = await payloadRSC.find({
+    collection: 'pages',
+  })
+
+  return (
+    <div>
+      {pages.docs.map((page) => (
+        <Link key={page.id} href={`/${page.id}`}>
+          {page.title}
+        </Link>
+      ))}
+    </div>
+  )
 }
 
-export default Example
+export default Pages

@@ -34,7 +34,7 @@ importers:
         version: 3.0.0-alpha.48(@types/react@18.2.66)(http-status@1.6.2)(monaco-editor@0.47.0)(next@14.2.0-canary.22)(payload@3.0.0-alpha.48)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
       '@payloadcms/next-cache':
         specifier: workspace:*
-        version: link:../../packages/cache
+        version: link:../../packages/next-cache
       '@payloadcms/richtext-lexical':
         specifier: 3.0.0-alpha.48
         version: 3.0.0-alpha.48(@lexical/clipboard@0.13.1)(@payloadcms/translations@3.0.0-alpha.48)(@payloadcms/ui@3.0.0-alpha.48)(payload@3.0.0-alpha.48)(typescript@5.4.2)(yjs@13.6.14)
@@ -85,31 +85,6 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2
 
-  packages/cache:
-    dependencies:
-      server-only:
-        specifier: ^0.0.1
-        version: 0.0.1
-    devDependencies:
-      '@private/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      '@types/node':
-        specifier: ^20.11.25
-        version: 20.11.27
-      '@types/react':
-        specifier: ^18.2.64
-        version: 18.2.66
-      next:
-        specifier: 14.2.0-canary.22
-        version: 14.2.0-canary.22(react-dom@18.2.0)(react@18.3.0-canary-a870b2d54-20240314)
-      payload:
-        specifier: 3.0.0-alpha.48
-        version: 3.0.0-alpha.48(@swc/core@1.4.8)(@swc/types@0.1.5)
-      react:
-        specifier: 18.3.0-canary-a870b2d54-20240314
-        version: 18.3.0-canary-a870b2d54-20240314
-
   packages/eslint-config:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
@@ -133,6 +108,28 @@ importers:
       typescript:
         specifier: ^5.4.2
         version: 5.4.2
+
+  packages/next-cache:
+    dependencies:
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+    devDependencies:
+      '@private/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^20.11.25
+        version: 20.11.27
+      '@types/react':
+        specifier: ^18.2.64
+        version: 18.2.66
+      next:
+        specifier: 14.2.0-canary.22
+        version: 14.2.0-canary.22(react-dom@18.2.0)(react@18.2.0)
+      payload:
+        specifier: 3.0.0-alpha.48
+        version: 3.0.0-alpha.48(@swc/core@1.4.8)(@swc/types@0.1.5)
 
   packages/typescript-config: {}
 
@@ -6788,46 +6785,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-    dev: false
-
-  /next@14.2.0-canary.22(react-dom@18.2.0)(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-nCqEuJLHRFDWpMfcql3D8V88GAGoEeZobxSCgi6ablFWMkzBGgrwZmsJi41OgtJnWwfF/c56MPXAgkFqbBcwyw==}
-    engines: {node: '>=18.17.0'}
-    hasBin: true
-    peerDependencies:
-      '@opentelemetry/api': ^1.1.0
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      sass: ^1.3.0
-    peerDependenciesMeta:
-      '@opentelemetry/api':
-        optional: true
-      sass:
-        optional: true
-    dependencies:
-      '@next/env': 14.2.0-canary.22
-      '@swc/helpers': 0.5.5
-      busboy: 1.6.0
-      caniuse-lite: 1.0.30001597
-      graceful-fs: 4.2.11
-      postcss: 8.4.31
-      react: 18.3.0-canary-a870b2d54-20240314
-      react-dom: 18.2.0(react@18.3.0-canary-a870b2d54-20240314)
-      styled-jsx: 5.1.1(react@18.3.0-canary-a870b2d54-20240314)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 14.2.0-canary.22
-      '@next/swc-darwin-x64': 14.2.0-canary.22
-      '@next/swc-linux-arm64-gnu': 14.2.0-canary.22
-      '@next/swc-linux-arm64-musl': 14.2.0-canary.22
-      '@next/swc-linux-x64-gnu': 14.2.0-canary.22
-      '@next/swc-linux-x64-musl': 14.2.0-canary.22
-      '@next/swc-win32-arm64-msvc': 14.2.0-canary.22
-      '@next/swc-win32-ia32-msvc': 14.2.0-canary.22
-      '@next/swc-win32-x64-msvc': 14.2.0-canary.22
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-    dev: true
 
   /node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
@@ -7435,17 +7392,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
-
-  /react-dom@18.2.0(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.0-canary-a870b2d54-20240314
-      scheduler: 0.23.0
-    dev: true
 
   /react-error-boundary@3.1.4(react@18.2.0):
     resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
@@ -7549,12 +7495,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
-
-  /react@18.3.0-canary-a870b2d54-20240314:
-    resolution: {integrity: sha512-/sjBAVN6TJ1G+Ia3hGMaLGZE3w/OKtO6FEzz/wBUKdmK3obyJvxK0FmHGVPpM9nDzrw5f1WJDoPE8nGgkvpKog==}
-    engines: {node: '>=0.10.0'}
-    dev: true
 
   /read-pkg-up@7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
@@ -8197,24 +8137,6 @@ packages:
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
-
-  /styled-jsx@5.1.1(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
-    engines: {node: '>= 12.0.0'}
-    peerDependencies:
-      '@babel/core': '*'
-      babel-plugin-macros: '*'
-      react: '>= 16.8.0 || 17.x.x || ^18.0.0-0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      babel-plugin-macros:
-        optional: true
-    dependencies:
-      client-only: 0.0.1
-      react: 18.3.0-canary-a870b2d54-20240314
-    dev: true
 
   /stylis@4.2.0:
     resolution: {integrity: sha512-Orov6g6BB1sDfYgzWfTHDOxamtX1bE/zo104Dh9e6fqJ3PooipYyfJ0pUmrZO2wAvO8YbEyeFrkV91XTsGMSrw==}
