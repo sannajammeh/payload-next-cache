@@ -22,6 +22,14 @@ payloadRSC.getPayload();
 payloadRSC.getPayloadConfig(); // For super advanced use cases
 ```
 
+## Limitations
+
+- No support for relationships (yet)
+- Field level revalidation is not supported (yet)
+  I.e if a field is updated, the `collection.slug` tag will also be invalidated.
+  A field level revlidation hook is in the works
+- There is no auto cache in the plugin for globals (coming very very soon)
+
 ## Setup
 
 Define a `payload.rsc.ts` file in the src directory.
@@ -215,11 +223,3 @@ Logging can also be overridden in the query
 ```tsx
 const pages = await payloadRSC.find({ collection: "pages" }, { logging: true }); // logs on all environments
 ```
-
-## Limitations
-
-- No support for relationships (yet)
-- Field level revalidation is not supported (yet)
-  I.e if a field is updated, the `collection.slug` tag will also be invalidated.
-  A field level revlidation hook is in the works
-- There is no auto cache in the plugin for globals (coming very very soon)
