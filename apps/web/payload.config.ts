@@ -25,6 +25,7 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { nextCache } from '@payloadcms/next-cache/plugin'
 import { GoToSite } from '@/components/GoToSite'
+import { Pages } from '@/collections/Pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,22 +34,7 @@ export default buildConfig({
   //editor: slateEditor({}),
   editor: lexicalEditor(),
   collections: [
-    {
-      slug: 'pages',
-      admin: {
-        useAsTitle: 'title',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'content',
-          type: 'richText',
-        },
-      ],
-    },
+    Pages,
     {
       slug: 'media',
       upload: true,
@@ -109,7 +95,7 @@ export default buildConfig({
   plugins: [
     nextCache({
       collections: {
-        pages: {
+        [Pages.slug]: {
           logging: 'development',
         },
       },
