@@ -24,6 +24,7 @@ import { buildConfig } from 'payload/config'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { nextCache } from '@payloadcms/next-cache/plugin'
+import { GoToSite } from '@/components/GoToSite'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -72,6 +73,9 @@ export default buildConfig({
     url: process.env.MONGODB_URI || '',
   }),
   admin: {
+    components: {
+      afterNavLinks: [GoToSite],
+    },
     autoLogin: {
       email: 'dev@payloadcms.com',
       password: 'test',

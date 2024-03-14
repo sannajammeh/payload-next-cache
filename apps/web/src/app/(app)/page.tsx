@@ -37,19 +37,6 @@ const Page = () => {
       </p>
 
       <Example />
-
-      <p>You can use the Local API in your server components like this:</p>
-      <pre>
-        <code>
-          {`import { getPayload } from 'payload'
-import configPromise from "@payload-config";
-const payload = await getPayload({ config: configPromise })
-
-const data = await payload.find({
-  collection: 'posts',
-})`}
-        </code>
-      </pre>
     </article>
   )
 }

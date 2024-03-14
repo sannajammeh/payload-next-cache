@@ -73,7 +73,7 @@ export const nextCache =
       collection.hooks.afterChange ||= [];
 
       collection.hooks.afterChange.push(
-        revalidateHook({ fields: [...fieldsToRevalidate, ...fields] })
+        revalidateHook({ fields: [...fieldsToRevalidate, ...fields], logging })
       );
 
       // Set the cache config
