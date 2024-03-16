@@ -4,7 +4,7 @@ import type { SanitizedConfig } from "payload/types";
 
 export type LoggingConfig = boolean | "development";
 
-export type CollectionCacheProps = {
+export type CacheProps = {
   revalidate?: number;
   fields?: string[];
   tags?: string[];

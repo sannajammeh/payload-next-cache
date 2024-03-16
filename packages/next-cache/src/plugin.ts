@@ -1,13 +1,22 @@
 import { type Plugin } from "payload/config";
-import { type CollectionConfig, type Field } from "payload/types";
-import { revalidateHook } from "./utils/cache-helpers";
-import type { CollectionCacheProps } from "./utils/types";
+import {
+  type CollectionConfig,
+  type Field,
+  type GlobalConfig,
+} from "payload/types";
+import { globalRevalidateHook, revalidateHook } from "./utils/cache-helpers";
+import type { CacheProps } from "./utils/types";
+import { dedupe } from "./utils/dedupe";
 
 interface CacheableCollection extends CollectionConfig {
   fields: Array<Field & { unique?: boolean; index?: boolean; name?: string }>;
 }
 
-interface CollectionCacheConfig {
+interface CacheableGlobal extends GlobalConfig {
+  fields: Array<Field & { unique?: boolean; index?: boolean; name?: string }>;
+}
+
+export interface PluginCacheConfig {
   /**
    * Custom fields to revalidate
    */
@@ -32,7 +41,8 @@ interface CollectionCacheConfig {
   logging?: boolean | "development";
 }
 interface PluginOptions {
-  collections: Record<string, CollectionCacheConfig>;
+  collections?: Record<string, PluginCacheConfig>;
+  globals?: Record<string, PluginCacheConfig>;
 }
 
 /**
@@ -58,10 +68,13 @@ export const nextCache =
   (initialConfig) => {
     const config = { ...initialConfig };
 
+    const collectionEntries = Object.entries(options.collections ?? {});
+    const globalEntries = Object.entries(options.globals ?? {});
+
     for (const [
       slug,
       { auto: autoTag = true, fields = [], revalidate, tags, logging },
-    ] of Object.entries(options.collections)) {
+    ] of collectionEntries) {
       const collection = config.collections?.find((c) => c.slug === slug) as
         | CacheableCollection
         | undefined;
@@ -91,17 +104,72 @@ export const nextCache =
       collection.hooks.afterChange ||= [];
 
       collection.hooks.afterChange.push(
-        revalidateHook({ fields: [...fieldsToRevalidate, ...fields], logging })
+        revalidateHook({
+          fields: dedupe([...fieldsToRevalidate, ...fields]),
+          tags,
+          logging,
+        })
       );
 
       // Set the cache config
       collection.custom ||= {};
-      collection.custom.cache = <CollectionCacheProps>{
+      collection.custom.cache = <CacheProps>{
         revalidate,
         tags,
-        fields: [...fieldsToRevalidate, ...fields],
+        fields: dedupe([...fieldsToRevalidate, ...fields]),
         logging,
       };
     }
+
+    for (const [
+      slug,
+      { auto: autoTag = true, fields = [], revalidate, tags, logging },
+    ] of globalEntries) {
+      const global = config.globals?.find((c) => c.slug === slug) as
+        | CacheableGlobal
+        | undefined;
+      if (!global) {
+        console.warn("[Next_Cache_Plugin]: Global not found for slug: ", slug);
+        continue;
+      }
+
+      const fieldsToRevalidate = !autoTag
+        ? []
+        : global.fields
+            .filter((field) => {
+              if (!field.name) return;
+              if ("index" in field) {
+                return !!field.index;
+              }
+              if ("unique" in field) {
+                return !!field.unique;
+              }
+            })
+            .map((field) => field.name!);
+
+      global.hooks ||= {};
+      global.hooks.afterChange ||= [];
+
+      global.hooks.afterChange.push(
+        globalRevalidateHook({
+          fields: dedupe([
+            ...fieldsToRevalidate,
+            ...fields,
+          ]) as unknown as never[],
+          tags,
+          logging,
+        })
+      );
+
+      // Set the cache config
+      global.custom ||= {};
+      global.custom.cache = <CacheProps>{
+        revalidate,
+        tags,
+        fields: dedupe([...fieldsToRevalidate, ...fields]),
+        logging,
+      };
+    }
+
     return config;
   };

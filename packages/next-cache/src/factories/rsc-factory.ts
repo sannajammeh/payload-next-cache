@@ -6,6 +6,7 @@ import { getFieldTag, getPreferredRevalidate } from "../utils/cache-helpers";
 import {
   unstable_createQueryTags,
   unstable_getCacheConfigFactory,
+  unstable_getGlobalCacheConfigFactory,
 } from "./cache";
 import { logTags } from "../utils/logging";
 
@@ -25,6 +26,7 @@ import {
   type CollectionKeys,
   type GlobalKeys,
 } from "../utils/types";
+import { dedupe } from "../utils/dedupe";
 
 export const findManyFactory = (
   getPayload: GetPayload,
@@ -127,10 +129,10 @@ export const findByIdFactory = (
       args.collection
     );
 
-    const tags = [
-      getFieldTag(args.collection, args.id),
+    const tags = dedupe([
+      getFieldTag(args.collection, "id", args.id),
       ...(options?.tags ?? []),
-    ];
+    ]);
     const keyParts = ["findById", args.collection];
 
     const getData = cache(findByID, keyParts, {
@@ -149,8 +151,13 @@ export const findByIdFactory = (
   return cached_findByID;
 };
 
-export const findGlobalFactory = (getPayload: GetPayload) => {
+export const findGlobalFactory = (
+  getPayload: GetPayload,
+  getPayloadConfig: GetPayloadConfig
+) => {
   const findGlobal = _findGlobalFactory(getPayload);
+  const getGlobalCacheConfig =
+    unstable_getGlobalCacheConfigFactory(getPayloadConfig);
 
   /**
    * Deployment wide caching for `payload.findGlobal()`
@@ -159,17 +166,23 @@ export const findGlobalFactory = (getPayload: GetPayload) => {
     args: GlobalArgs & { slug: T },
     options?: RevalidateOptions
   ) => {
-    // TODO No config for globals
-    const tags = [args.slug, ...(options?.tags ?? [])];
+    const cacheConfig = await getGlobalCacheConfig(args.slug);
+
+    const tags = dedupe([args.slug, ...(options?.tags ?? [])]);
     const keyParts = ["findGlobal", args.slug];
+
+    const revalidate = getPreferredRevalidate(
+      options?.revalidate,
+      cacheConfig?.revalidate
+    );
 
     const getData = cache(findGlobal, keyParts, {
       tags,
-      revalidate: options?.revalidate,
+      revalidate,
     });
 
     const result = await getData(args);
-    logTags(keyParts, tags, undefined, options);
+    logTags(keyParts, tags, cacheConfig, options);
     return result;
   };
 

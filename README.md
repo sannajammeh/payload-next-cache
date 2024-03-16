@@ -28,7 +28,7 @@ payloadRSC.getPayloadConfig(); // For super advanced use cases
 - Field level revalidation is not supported (yet)
   I.e if a field is updated, the `collection.slug` tag will also be invalidated.
   A field level revlidation hook is in the works
-- There is no auto cache in the plugin for globals (coming very very soon)
+- ~~There is no auto cache in the plugin for globals (coming very very soon)~~ ✅
 
 ## Setup
 

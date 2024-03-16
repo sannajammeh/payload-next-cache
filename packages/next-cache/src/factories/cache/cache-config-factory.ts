@@ -4,28 +4,36 @@ import {
   type Where,
   type WhereField,
   type SanitizedCollectionConfig,
+  type SanitizedGlobalConfig,
 } from "payload/types";
 import {
   type RevalidateOptions,
-  type CollectionCacheProps,
+  type CacheProps,
   type CollectionKeys,
   type GetPayloadConfig,
 } from "../../utils/types";
 import { getFieldTag } from "../../utils/cache-helpers";
 import { logger } from "../../utils/logging";
+import { dedupe } from "../../utils/dedupe";
 
-type CacheableCollection = SanitizedCollectionConfig & {
+type CacheConfig = {
   custom?: {
-    cache?: CollectionCacheProps;
+    cache?: CacheProps;
     [key: string]: any;
   };
 };
 
-function cacheConfigFactory(getPayloadConfig: GetPayloadConfig) {
+type CacheableCollection = SanitizedCollectionConfig & CacheConfig;
+type CacheableGlobal = SanitizedGlobalConfig & CacheConfig;
+
+function _cacheConfigFactory(
+  getPayloadConfig: GetPayloadConfig,
+  type: "collections" | "globals"
+) {
   const getCacheConfig = async (slug: string) => {
     const config = await getPayloadConfig();
 
-    const collection = config.collections.find((c) => c.slug === slug) as
+    const collection = config[type].find((c) => c.slug === slug) as
       | CacheableCollection
       | undefined;
 
@@ -39,10 +47,13 @@ const deploymentID = !!process.env.NEXT_DEPLOYMENT_ID
   ? [process.env.NEXT_DEPLOYMENT_ID]
   : [];
 
+/**
+ * Creates a factory function to get cache config for collections
+ */
 export function unstable_getCacheConfigFactory(
   getPayloadConfig: GetPayloadConfig
 ) {
-  const getCacheConfig = cacheConfigFactory(getPayloadConfig);
+  const getCacheConfig = _cacheConfigFactory(getPayloadConfig, "collections");
   /**
    * Caches config at build time with deploymentID for instant access
    */
@@ -56,6 +67,25 @@ export function unstable_getCacheConfigFactory(
   return unstable_getCollectionCacheConfig;
 }
 
+/**
+ * Creates a factory function to get cache config for globals
+ */
+export function unstable_getGlobalCacheConfigFactory(
+  getPayloadConfig: GetPayloadConfig
+) {
+  const getCacheConfig = _cacheConfigFactory(getPayloadConfig, "globals");
+  /**
+   * Caches config at build time with deploymentID for instant access
+   */
+  const unstable_getGlobalCacheConfig = (slug: string) => {
+    return unstable_cache(getCacheConfig, ["global-cache", ...deploymentID])(
+      slug
+    );
+  };
+
+  return unstable_getGlobalCacheConfig;
+}
+
 export const unstable_createQueryTags = (
   collectionName: CollectionKeys,
   {
@@ -63,7 +93,7 @@ export const unstable_createQueryTags = (
     localConfig,
     where,
   }: {
-    cacheConfig?: CollectionCacheProps;
+    cacheConfig?: CacheProps;
     localConfig?: RevalidateOptions;
     where?: Where;
   } = {}
@@ -72,7 +102,7 @@ export const unstable_createQueryTags = (
 
   if (Array.isArray(where)) {
     arrayWarning();
-    return uniqueTags(tags);
+    return dedupe(tags);
   }
 
   if (cacheConfig?.fields) {
@@ -86,13 +116,13 @@ export const unstable_createQueryTags = (
 
         const tagValues = mapWhereToTags(fieldQuery);
         for (const value of tagValues) {
-          if (value) tags.push(getFieldTag(collectionName, value));
+          if (value) tags.push(getFieldTag(collectionName, field, value));
         }
       }
     }
   }
 
-  return uniqueTags(tags);
+  return dedupe(tags);
 };
 
 function mapWhereToTags(where: WhereField) {
@@ -105,10 +135,6 @@ function mapWhereToTags(where: WhereField) {
   }
 
   return [];
-}
-
-function uniqueTags(tags: string[]) {
-  return [...new Set(tags)];
 }
 
 const arrayWarning = () => {

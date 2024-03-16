@@ -26,6 +26,7 @@ import { fileURLToPath } from 'url'
 import { nextCache } from '@payloadcms/next-cache/plugin'
 import { GoToSite } from '@/components/GoToSite'
 import { Pages } from '@/collections/Pages'
+import { TestGlobal } from '@/collections/TestGlobal'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -46,6 +47,7 @@ export default buildConfig({
       ],
     },
   ],
+  globals: [TestGlobal],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -98,6 +100,9 @@ export default buildConfig({
         [Pages.slug]: {
           logging: 'development',
         },
+      },
+      globals: {
+        [TestGlobal.slug]: {},
       },
     }),
   ],

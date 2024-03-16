@@ -1,5 +1,5 @@
 import {
-  type CollectionCacheProps,
+  type CacheProps,
   type LoggingConfig,
   type RevalidateOptions,
 } from "./types";
@@ -27,7 +27,7 @@ export const loggingEnabled = (logging?: LoggingConfig) => {
 export const logTags = (
   keyParts: string[],
   tags: string[],
-  cacheConfig?: CollectionCacheProps,
+  cacheConfig?: CacheProps,
   localConfig?: RevalidateOptions
 ) => {
   const logging = localConfig?.logging ?? cacheConfig?.logging;

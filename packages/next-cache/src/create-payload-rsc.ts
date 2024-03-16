@@ -49,7 +49,7 @@ export const createPayloadRSC = ({ config }: CreatePayloadRscOptions) => {
   /**
    * Deployment wide caching for `payload.findGlobal()`
    */
-  const findGlobal = findGlobalFactory(getPayload);
+  const findGlobal = findGlobalFactory(getPayload, getPayloadConfig);
 
   /**
    * Payload React Server Components Client
