@@ -7,6 +7,10 @@ const Example = async () => {
     collection: 'pages',
   })
 
+  // const global = await payloadRSC.findGlobal({
+  //   slug: ""
+  // })
+
   return (
     <div>
       <h3>Example pages generated cached from Payload RSC util:</h3>

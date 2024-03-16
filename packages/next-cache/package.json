@@ -3,17 +3,32 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "./dist/es/index.js",
+  "types": "./dist/es/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts"
+      "import": {
+        "types": "./dist/es/index.d.ts",
+        "default": "./dist/es/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
     },
     "./plugin": {
-      "types": "./src/plugin.ts",
-      "import": "./src/plugin.ts"
+      "import": {
+        "types": "./dist/es/plugin.d.ts",
+        "default": "./dist/es/plugin.js"
+      },
+      "require": {
+        "types": "./dist/cjs/plugin.d.cts",
+        "default": "./dist/cjs/plugin.cjs"
+      }
     }
+  },
+  "scripts": {
+    "build": "bunchee --target=es2020"
   },
   "keywords": [],
   "author": "",
@@ -22,8 +37,10 @@
     "@private/typescript-config": "workspace:*",
     "@types/node": "^20.11.25",
     "@types/react": "^18.2.64",
+    "bunchee": "^4.4.8",
     "next": "14.2.0-canary.22",
-    "payload": "3.0.0-alpha.48"
+    "payload": "3.0.0-alpha.48",
+    "typescript": "^5.4.2"
   },
   "peerDependencies": {
     "@types/react": "^18.2.64",
@@ -32,5 +49,9 @@
   },
   "dependencies": {
     "server-only": "^0.0.1"
-  }
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/es/index.js"
 }

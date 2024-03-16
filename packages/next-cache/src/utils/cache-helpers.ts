@@ -24,14 +24,14 @@ export const getFieldTag = <T extends CollectionKeys>(
   fieldName: string | number | symbol,
   field: string | number
 ) => {
-  return `${collection}-${String(fieldName)}-${field}`;
+  return `${String(collection)}-${String(fieldName)}-${String(field)}`;
 };
 export const getGlobalFieldTag = <T extends GlobalKeys>(
   global: T,
   fieldName: string | number | symbol,
   field: string | number
 ) => {
-  return `global-${global}-${String(fieldName)}-${field}`;
+  return `global-${String(global)}-${String(fieldName)}-${String(field)}`;
 };
 
 export const revalidateHook = <T extends TypeWithID>({

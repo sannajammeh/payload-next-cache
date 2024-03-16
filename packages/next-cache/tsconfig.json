@@ -1,12 +1,22 @@
 {
-  "extends": "@private/typescript-config/nextjs.json",
   "compilerOptions": {
-    "types": ["react/canary"],
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "types": ["react/canary", "react", "node"],
     "skipLibCheck": true,
     "composite": false,
-    "declaration": false,
-    "declarationMap": false,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "moduleResolution": "Bundler",
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "node_modules/payload/dist/database/types"
+  ]
 }

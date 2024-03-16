@@ -7,7 +7,7 @@ import {
   unstable_createQueryTags,
   unstable_getCacheConfigFactory,
   unstable_getGlobalCacheConfigFactory,
-} from "./cache";
+} from "./cache/cache-config-factory";
 import { logTags } from "../utils/logging";
 
 import {
@@ -27,11 +27,18 @@ import {
   type GlobalKeys,
 } from "../utils/types";
 import { dedupe } from "../utils/dedupe";
+import type { PaginatedDocs } from "payload/database";
+import type { GeneratedTypes } from "payload";
+
+export type CachedFindMany = <T extends CollectionKeys>(
+  args: FindArgs & { collection: T },
+  options?: RevalidateOptions
+) => Promise<PaginatedDocs<GeneratedTypes["collections"][T]>>;
 
 export const findManyFactory = (
   getPayload: GetPayload,
   getPayloadConfig: GetPayloadConfig
-) => {
+): CachedFindMany => {
   const unstable_getCollectionCacheConfig =
     unstable_getCacheConfigFactory(getPayloadConfig);
 
@@ -40,19 +47,19 @@ export const findManyFactory = (
   /**
    * Deployment wide caching for `payload.find()`
    */
-  const cached_findMany = async <T extends CollectionKeys>(
-    args: FindArgs & { collection: T },
-    options?: RevalidateOptions
-  ) => {
+  const cached_findMany: CachedFindMany = async (args, options) => {
     const cacheConfig = await unstable_getCollectionCacheConfig(
-      args.collection
+      String(args.collection)
     );
 
-    const tags = dedupe([args.collection, ...(options?.tags ?? [])]);
+    const tags = dedupe([
+      String(args.collection),
+      ...(options?.tags ?? []),
+    ]) as string[];
 
-    const keyParts = ["find", args.collection];
+    const keyParts = ["find", String(args.collection)];
     const getData = cache(find, keyParts, {
-      tags,
+      tags: tags,
       revalidate: getPreferredRevalidate(
         options?.revalidate,
         cacheConfig?.revalidate
@@ -67,10 +74,14 @@ export const findManyFactory = (
   return cached_findMany;
 };
 
+export type CachedFindOne = <T extends CollectionKeys>(
+  args: FindArgs & { collection: T },
+  options?: RevalidateOptions
+) => Promise<GeneratedTypes["collections"][T]>;
 export const findOneFactory = (
   getPayload: GetPayload,
   getPayloadConfig: GetPayloadConfig
-) => {
+): CachedFindOne => {
   const unstable_getCollectionCacheConfig =
     unstable_getCacheConfigFactory(getPayloadConfig);
 
@@ -79,20 +90,17 @@ export const findOneFactory = (
   /**
    * Deployment wide caching for `payload.find({limit: 1})`
    */
-  const cached_findOne = async <T extends CollectionKeys>(
-    args: FindArgs & { collection: T },
-    options?: RevalidateOptions
-  ) => {
+  const cached_findOne: CachedFindOne = async (args, options) => {
     const cacheConfig = await unstable_getCollectionCacheConfig(
-      args.collection
+      String(args.collection)
     );
 
     const tags = unstable_createQueryTags(args.collection, {
       where: args.where,
       cacheConfig,
       localConfig: options,
-    });
-    const keyParts = ["findOne", args.collection];
+    }) as string[];
+    const keyParts = ["findOne", String(args.collection)];
 
     const getData = cache(find, keyParts, {
       tags: tags,
@@ -110,10 +118,14 @@ export const findOneFactory = (
   return cached_findOne;
 };
 
+export type CachedFindById = <T extends CollectionKeys>(
+  args: FindByIDArgs & { collection: T },
+  options?: RevalidateOptions
+) => Promise<GeneratedTypes["collections"][T]>;
 export const findByIdFactory = (
   getPayload: GetPayload,
   getPayloadConfig: GetPayloadConfig
-) => {
+): CachedFindById => {
   const unstable_getCollectionCacheConfig =
     unstable_getCacheConfigFactory(getPayloadConfig);
 
@@ -121,19 +133,16 @@ export const findByIdFactory = (
   /**
    * Deployment wide caching for `payload.findByID()`
    */
-  const cached_findByID = async <T extends CollectionKeys>(
-    args: FindByIDArgs & { collection: T },
-    options?: RevalidateOptions
-  ) => {
+  const cached_findByID: CachedFindById = async (args, options) => {
     const cacheConfig = await unstable_getCollectionCacheConfig(
-      args.collection
+      String(args.collection)
     );
 
     const tags = dedupe([
       getFieldTag(args.collection, "id", args.id),
       ...(options?.tags ?? []),
-    ]);
-    const keyParts = ["findById", args.collection];
+    ]) as string[];
+    const keyParts = ["findById", String(args.collection)];
 
     const getData = cache(findByID, keyParts, {
       tags,
@@ -151,10 +160,14 @@ export const findByIdFactory = (
   return cached_findByID;
 };
 
+export type CachedFindGlobal = <T extends GlobalKeys>(
+  args: GlobalArgs & { slug: T },
+  options?: RevalidateOptions
+) => Promise<GeneratedTypes["globals"][T]>;
 export const findGlobalFactory = (
   getPayload: GetPayload,
   getPayloadConfig: GetPayloadConfig
-) => {
+): CachedFindGlobal => {
   const findGlobal = _findGlobalFactory(getPayload);
   const getGlobalCacheConfig =
     unstable_getGlobalCacheConfigFactory(getPayloadConfig);
@@ -162,14 +175,14 @@ export const findGlobalFactory = (
   /**
    * Deployment wide caching for `payload.findGlobal()`
    */
-  const cached_findGlobal = async <T extends GlobalKeys>(
-    args: GlobalArgs & { slug: T },
-    options?: RevalidateOptions
-  ) => {
-    const cacheConfig = await getGlobalCacheConfig(args.slug);
+  const cached_findGlobal: CachedFindGlobal = async (args, options) => {
+    const cacheConfig = await getGlobalCacheConfig(String(args.slug));
 
-    const tags = dedupe([args.slug, ...(options?.tags ?? [])]);
-    const keyParts = ["findGlobal", args.slug];
+    const tags = dedupe([
+      args.slug as string,
+      ...(options?.tags ?? []),
+    ]) as string[];
+    const keyParts = ["findGlobal", String(args.slug)];
 
     const revalidate = getPreferredRevalidate(
       options?.revalidate,
