@@ -14,7 +14,9 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  globals: {};
+  globals: {
+    'test-global': TestGlobal;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -38,6 +40,7 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -107,6 +110,16 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "test-global".
+ */
+export interface TestGlobal {
+  id: string;
+  title?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 
 

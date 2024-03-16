@@ -8,7 +8,7 @@ const Example = async () => {
   })
 
   const global = await payloadRSC.findGlobal({
-    slug: '',
+    slug: 'test-global',
   })
 
   return (
@@ -19,6 +19,9 @@ const Example = async () => {
           {page.title}
         </Link>
       ))}
+
+      <h3>Example global generated cached from Payload RSC util:</h3>
+      <p>{global.title}</p>
     </div>
   )
 }

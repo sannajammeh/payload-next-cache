@@ -4,12 +4,11 @@
   "description": "",
   "main": "./dist/cjs/index.cjs",
   "types": "./dist/cjs/index.d.cts",
-  "module": "./dist/es/index.js",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/es/index.d.ts",
-        "default": "./dist/es/index.js"
+        "default": "./dist/es/index.mjs"
       },
       "require": {
         "types": "./dist/cjs/index.d.cts",
@@ -19,7 +18,7 @@
     "./plugin": {
       "import": {
         "types": "./dist/es/plugin.d.ts",
-        "default": "./dist/es/plugin.js"
+        "default": "./dist/es/plugin.mjs"
       },
       "require": {
         "types": "./dist/cjs/plugin.d.cts",

@@ -23,10 +23,13 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload/config'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-import { nextCache } from '@payloadcms/next-cache/plugin'
-import { GoToSite } from '@/components/GoToSite'
+// import { GoToSite } from '@/components/GoToSite'
 import { Pages } from '@/collections/Pages'
 import { TestGlobal } from '@/collections/TestGlobal'
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
+const nextCache = require('@payloadcms/next-cache/plugin').nextCache
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -62,7 +65,7 @@ export default buildConfig({
   }),
   admin: {
     components: {
-      afterNavLinks: [GoToSite],
+      // afterNavLinks: [GoToSite],
     },
     autoLogin: {
       email: 'dev@payloadcms.com',

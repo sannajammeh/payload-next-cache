@@ -173,3 +173,5 @@ export const nextCache =
 
     return config;
   };
+
+export default nextCache;
