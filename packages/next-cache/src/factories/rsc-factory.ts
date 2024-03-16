@@ -48,7 +48,7 @@ export const findManyFactory = (
       args.collection
     );
 
-    const tags = [args.collection, ...(options?.tags ?? [])];
+    const tags = dedupe([args.collection, ...(options?.tags ?? [])]);
 
     const keyParts = ["find", args.collection];
     const getData = cache(find, keyParts, {

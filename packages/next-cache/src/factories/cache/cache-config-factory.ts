@@ -98,7 +98,7 @@ export const unstable_createQueryTags = (
     where?: Where;
   } = {}
 ) => {
-  const tags = [...(localConfig?.tags ?? []), ...(cacheConfig?.tags ?? [])];
+  const tags = [...(localConfig?.tags ?? [])];
 
   if (Array.isArray(where)) {
     arrayWarning();
