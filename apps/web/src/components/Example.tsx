@@ -7,9 +7,9 @@ const Example = async () => {
     collection: 'pages',
   })
 
-  // const global = await payloadRSC.findGlobal({
-  //   slug: ""
-  // })
+  const global = await payloadRSC.findGlobal({
+    slug: '',
+  })
 
   return (
     <div>

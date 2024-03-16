@@ -1,10 +1,10 @@
 {
   "name": "@payloadcms/next-cache",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/es/index.js",
-  "types": "./dist/es/index.d.ts",
+  "main": "./dist/cjs/index.cjs",
+  "types": "./dist/cjs/index.d.cts",
+  "module": "./dist/es/index.js",
   "exports": {
     ".": {
       "import": {
@@ -52,6 +52,5 @@
   },
   "files": [
     "dist"
-  ],
-  "module": "./dist/es/index.js"
+  ]
 }
