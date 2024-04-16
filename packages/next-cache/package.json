@@ -34,17 +34,17 @@
   "license": "ISC",
   "devDependencies": {
     "@private/typescript-config": "workspace:*",
-    "@types/node": "^20.11.25",
-    "@types/react": "^18.2.64",
-    "bunchee": "^4.4.8",
-    "next": "14.2.0-canary.22",
-    "payload": "3.0.0-alpha.48",
-    "typescript": "^5.4.2"
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.79",
+    "bunchee": "^5.1.2",
+    "next": "14.2.1",
+    "payload": "3.0.0-beta.11",
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "@types/react": "^18.2.64",
     "next": "14.2.0-canary.22",
-    "payload": "3.0.0-alpha.48"
+    "payload": "3.0.0-beta.11"
   },
   "dependencies": {
     "server-only": "^0.0.1"
