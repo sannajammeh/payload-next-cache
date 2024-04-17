@@ -1,0 +1,9 @@
+.root {
+  padding-inline: 14px;
+
+  @media screen and (min-width: 768px) {
+    padding-inline: revert;
+    max-width: 80vw;
+    margin-inline: auto;
+  }
+}

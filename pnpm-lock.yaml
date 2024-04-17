@@ -44,9 +44,15 @@ importers:
       '@payloadcms/richtext-slate':
         specifier: 3.0.0-beta.11
         version: 3.0.0-beta.11(@payloadcms/translations@3.0.0-beta.11)(@payloadcms/ui@3.0.0-beta.11)(payload@3.0.0-beta.11)(react-dom@18.2.0)
+      '@tw-classed/react':
+        specifier: ^1.7.0
+        version: 1.7.0(react@18.2.0)
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      geist:
+        specifier: ^1.3.0
+        version: 1.3.0(next@14.2.1)
       next:
         specifier: 14.2.1
         version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
@@ -3501,6 +3507,19 @@ packages:
   /@tokenizer/token@0.3.0:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
+  /@tw-classed/core@1.7.0:
+    resolution: {integrity: sha512-D57pNSN3JY2pRB6iPzZKB0m0hWfNGZ6MkxavYxgTDp+YIosi9VwDn6Cc87qcOM3ogu2CFvIAi2XXoAREnz0UFQ==}
+    dev: false
+
+  /@tw-classed/react@1.7.0(react@18.2.0):
+    resolution: {integrity: sha512-7xEy/wQzoqBLU+xehwsc4Oz1Bqh561X80fUM6B3emZlxuXlwI/7rKE2b+RZrXGNtOKhJ+1CsJkCZ1EFfFSUrew==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      '@tw-classed/core': 1.7.0
+      react: 18.2.0
+    dev: false
+
   /@types/busboy@1.5.3:
     resolution: {integrity: sha512-YMBLFN/xBD8bnqywIlGyYqsNFXu6bsiY7h3Ae0kO17qEuTjsqeyYMRPSUDacIKIquws2Y6KjmxAyNx8xB3xQbw==}
     dependencies:
@@ -6241,6 +6260,14 @@ packages:
 
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
+
+  /geist@1.3.0(next@14.2.1):
+    resolution: {integrity: sha512-IoGBfcqVEYB4bEwsfHd35jF4+X9LHRPYZymHL4YOltHSs9LJa24DYs1Z7rEMQ/lsEvaAIc61Y9aUxgcJaQ8lrg==}
+    peerDependencies:
+      next: '>=13.2.0 <15.0.0-0'
+    dependencies:
+      next: 14.2.1(react-dom@18.2.0)(react@18.2.0)
+    dev: false
 
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}

@@ -1,0 +1,29 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1 / 1;
+  border: 1px solid #2b2b2b;
+  padding: 1.5rem;
+  justify-content: space-between;
+  text-decoration: none !important;
+
+  & h3 {
+    margin: 0;
+    color: white;
+  }
+
+  & .text {
+    transition: transform 0.5s ease;
+  }
+
+  &:hover {
+    & .text {
+      transform: translateY(-0.5rem);
+    }
+  }
+}

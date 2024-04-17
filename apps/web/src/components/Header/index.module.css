@@ -1,0 +1,26 @@
+.root {
+  height: 76px;
+}
+
+.inner {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
+  border-bottom: 1px solid #2b2b2b;
+
+  & nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  text-decoration: none;
+  color: inherit;
+}

@@ -27,6 +27,7 @@ import { fileURLToPath } from 'url'
 import { Pages } from '@/collections/Pages'
 import { TestGlobal } from '@/collections/TestGlobal'
 import { createRequire } from 'node:module'
+import { GoToSite } from '@/components/GoToSite'
 
 const require = createRequire(import.meta.url)
 const nextCache = require('@payloadcms/next-cache/plugin').nextCache
@@ -65,7 +66,7 @@ export default buildConfig({
   }),
   admin: {
     components: {
-      // afterNavLinks: [GoToSite],
+      afterNavLinks: [GoToSite],
     },
     autoLogin: {
       email: 'dev@payloadcms.com',

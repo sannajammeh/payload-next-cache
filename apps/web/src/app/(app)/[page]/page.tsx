@@ -1,3 +1,4 @@
+import { Container } from '@/components/Container'
 import { payloadRSC } from '@/payload.rsc'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -9,18 +10,24 @@ interface Props {
 }
 
 const Page = async ({ params: { page } }: Props) => {
-  const pageData = await payloadRSC
-    .findByID({
-      id: page,
-      collection: 'pages',
-    })
-    .catch(() => notFound())
+  const pageData = await payloadRSC.findOne({
+    collection: 'pages',
+    where: {
+      slug: {
+        equals: page,
+      },
+    },
+  })
+
+  if (!pageData) notFound()
 
   return (
-    <div>
+    <Container>
       <h1>{pageData.title}</h1>
-      <p></p>
-    </div>
+      <pre>
+        <code>{JSON.stringify(pageData.content, null, 2)}</code>
+      </pre>
+    </Container>
   )
 }
 
