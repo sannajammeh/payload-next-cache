@@ -18,6 +18,12 @@ import {
   UnorderedListFeature,
   UploadFeature,
 } from '@payloadcms/richtext-lexical'
+import nestedDocs from '@payloadcms/plugin-nested-docs'
+
+const interopDefault = <T>(e: T): T => (e as any).default || e
+
+const nestedDocsPlugin = interopDefault(nestedDocs)
+
 //import { slateEditor } from '@payloadcms/richtext-slate'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload/config'
@@ -108,6 +114,11 @@ export default buildConfig({
       globals: {
         [TestGlobal.slug]: {},
       },
+    }),
+    nestedDocsPlugin({
+      collections: ['pages'],
+      generateLabel: (_, doc) => doc.title as string,
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
   ],
 })

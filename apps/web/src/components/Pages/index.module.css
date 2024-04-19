@@ -4,6 +4,7 @@
 }
 
 .page {
+  position: relative;
   display: flex;
   flex-direction: column;
   aspect-ratio: 1 / 1;

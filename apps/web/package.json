@@ -19,6 +19,7 @@
     "@payloadcms/db-postgres": "3.0.0-beta.11",
     "@payloadcms/next": "3.0.0-beta.11",
     "@payloadcms/next-cache": "workspace:*",
+    "@payloadcms/plugin-nested-docs": "^1.0.12",
     "@payloadcms/richtext-lexical": "3.0.0-beta.11",
     "@payloadcms/richtext-slate": "3.0.0-beta.11",
     "@tw-classed/react": "^1.7.0",

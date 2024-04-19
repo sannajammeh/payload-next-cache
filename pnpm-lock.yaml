@@ -38,6 +38,9 @@ importers:
       '@payloadcms/next-cache':
         specifier: workspace:*
         version: link:../../packages/next-cache
+      '@payloadcms/plugin-nested-docs':
+        specifier: ^1.0.12
+        version: 1.0.12(payload@3.0.0-beta.11)
       '@payloadcms/richtext-lexical':
         specifier: 3.0.0-beta.11
         version: 3.0.0-beta.11(@lexical/clipboard@0.13.1)(@payloadcms/next@3.0.0-beta.11)(@payloadcms/translations@3.0.0-beta.11)(@payloadcms/ui@3.0.0-beta.11)(payload@3.0.0-beta.11)(typescript@5.4.5)(yjs@13.6.14)
@@ -2583,6 +2586,14 @@ packages:
       - react-native
       - scheduler
       - utf-8-validate
+    dev: false
+
+  /@payloadcms/plugin-nested-docs@1.0.12(payload@3.0.0-beta.11):
+    resolution: {integrity: sha512-CZcfGjN3nUtlAHHlbjgnmiB+lPCw3X7CNN2t2IL5+n94OH98Kwfnu+qhPV/ALm1JAWMY0sQ46kRIwWHij016Nw==}
+    peerDependencies:
+      payload: ^0.18.5 || ^1.0.0 || ^2.0.0
+    dependencies:
+      payload: 3.0.0-beta.11(@swc/core@1.4.14)(@swc/types@0.1.6)
     dev: false
 
   /@payloadcms/richtext-lexical@3.0.0-beta.11(@lexical/clipboard@0.13.1)(@payloadcms/next@3.0.0-beta.11)(@payloadcms/translations@3.0.0-beta.11)(@payloadcms/ui@3.0.0-beta.11)(payload@3.0.0-beta.11)(typescript@5.4.5)(yjs@13.6.14):

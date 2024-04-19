@@ -5,16 +5,21 @@ import React from 'react'
 
 interface Props {
   params: {
-    page: string
+    slugs: string[]
   }
 }
 
-const Page = async ({ params: { page } }: Props) => {
+function slugsToPath(slugs: string[]) {
+  const newSlugs = slugs.join('/')
+  return newSlugs.startsWith('/') ? newSlugs : `/${newSlugs}`
+}
+
+const Page = async ({ params: { slugs } }: Props) => {
   const pageData = await payloadRSC.findOne({
     collection: 'pages',
     where: {
-      slug: {
-        equals: page,
+      path: {
+        equals: slugsToPath(slugs),
       },
     },
   })
@@ -25,7 +30,7 @@ const Page = async ({ params: { page } }: Props) => {
     <Container>
       <h1>{pageData.title}</h1>
       <pre>
-        <code>{JSON.stringify(pageData.content, null, 2)}</code>
+        <code>{JSON.stringify(pageData, null, 2)}</code>
       </pre>
     </Container>
   )
