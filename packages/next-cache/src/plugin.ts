@@ -1,9 +1,5 @@
-import { type Plugin } from "payload/config";
-import {
-  type CollectionConfig,
-  type Field,
-  type GlobalConfig,
-} from "payload/types";
+import { type Plugin } from "payload";
+import { type CollectionConfig, type Field, type GlobalConfig } from "payload";
 import { globalRevalidateHook, revalidateHook } from "./utils/cache-helpers";
 import type { CacheProps } from "./utils/types";
 import { dedupe } from "./utils/dedupe";

@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { SanitizedConfig } from "payload/types";
+import type { SanitizedConfig } from "payload";
 import { cache } from "react";
 import { getPayload as payloadGetter } from "payload";
 import {

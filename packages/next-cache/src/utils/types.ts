@@ -1,6 +1,6 @@
 import { type unstable_cache } from "next/cache";
 import { type GeneratedTypes, type Payload } from "payload";
-import type { SanitizedConfig } from "payload/types";
+import type { SanitizedConfig } from "payload";
 
 export type LoggingConfig = boolean | "development";
 

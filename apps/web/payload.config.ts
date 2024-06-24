@@ -2,10 +2,10 @@ import path from 'path'
 // import { postgresAdapter } from '@payloadcms/db-postgres'
 import {
   AlignFeature,
-  BlockQuoteFeature,
+  BlockquoteFeature,
   BlocksFeature,
   BoldFeature,
-  CheckListFeature,
+  ChecklistFeature,
   HeadingFeature,
   IndentFeature,
   InlineCodeFeature,
@@ -18,15 +18,11 @@ import {
   UnorderedListFeature,
   UploadFeature,
 } from '@payloadcms/richtext-lexical'
-import nestedDocs from '@payloadcms/plugin-nested-docs'
-
-const interopDefault = <T>(e: T): T => (e as any).default || e
-
-const nestedDocsPlugin = interopDefault(nestedDocs)
+import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 
 //import { slateEditor } from '@payloadcms/richtext-slate'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { buildConfig } from 'payload/config'
+import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 // import { GoToSite } from '@/components/GoToSite'

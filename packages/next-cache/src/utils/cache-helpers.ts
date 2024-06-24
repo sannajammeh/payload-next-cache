@@ -3,7 +3,7 @@ import {
   type CollectionAfterChangeHook,
   type GlobalAfterChangeHook,
   type TypeWithID,
-} from "payload/types";
+} from "payload";
 import type {
   CollectionKeys,
   GlobalKeys,

@@ -27,7 +27,7 @@ import {
   type GlobalKeys,
 } from "../utils/types";
 import { dedupe } from "../utils/dedupe";
-import type { PaginatedDocs } from "payload/database";
+import type { PaginatedDocs } from "payload";
 import type { GeneratedTypes } from "payload";
 
 export type CachedFindMany = <T extends CollectionKeys>(

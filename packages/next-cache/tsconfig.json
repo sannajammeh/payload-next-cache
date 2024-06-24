@@ -9,8 +9,8 @@
     "verbatimModuleSyntax": true,
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "declarationMap": true
+    "declaration": false,
+    "declarationMap": false
   },
   "include": [
     "next-env.d.ts",
