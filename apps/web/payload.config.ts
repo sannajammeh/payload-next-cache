@@ -1,23 +1,6 @@
 import path from 'path'
 // import { postgresAdapter } from '@payloadcms/db-postgres'
-import {
-  AlignFeature,
-  BlockquoteFeature,
-  BlocksFeature,
-  BoldFeature,
-  ChecklistFeature,
-  HeadingFeature,
-  IndentFeature,
-  InlineCodeFeature,
-  ItalicFeature,
-  lexicalEditor,
-  LinkFeature,
-  OrderedListFeature,
-  ParagraphFeature,
-  RelationshipFeature,
-  UnorderedListFeature,
-  UploadFeature,
-} from '@payloadcms/richtext-lexical'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 
 //import { slateEditor } from '@payloadcms/richtext-slate'
@@ -28,11 +11,8 @@ import { fileURLToPath } from 'url'
 // import { GoToSite } from '@/components/GoToSite'
 import { Pages } from '@/collections/Pages'
 import { TestGlobal } from '@/collections/TestGlobal'
-import { createRequire } from 'node:module'
 import { GoToSite } from '@/components/GoToSite'
-
-const require = createRequire(import.meta.url)
-const nextCache = require('@payloadcms/next-cache/plugin').nextCache
+import { nextCache } from '@payloadcms/next-cache/plugin'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
