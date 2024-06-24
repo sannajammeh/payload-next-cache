@@ -1,4 +1,4 @@
-import { CollectionAfterReadHook, CollectionConfig } from 'payload/types'
+import { CollectionAfterReadHook, CollectionConfig } from 'payload'
 import { QuoteBlock } from './blocks/QuoteBlock'
 import { Page } from 'payload-types'
 

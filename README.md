@@ -81,7 +81,7 @@ In order to tag on other fields, the fields must have either `unique: true` or `
 `PagesCollection.ts`
 
 ```tsx
-import { CollectionConfig } from "payload/types";
+import { CollectionConfig } from "payload";
 
 export const Pages = {
   slug: "pages",

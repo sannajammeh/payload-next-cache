@@ -5,7 +5,7 @@ import {
   type WhereField,
   type SanitizedCollectionConfig,
   type SanitizedGlobalConfig,
-} from "payload/types";
+} from "payload";
 import {
   type RevalidateOptions,
   type CacheProps,
