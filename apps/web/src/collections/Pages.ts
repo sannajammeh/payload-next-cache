@@ -39,11 +39,6 @@ export const Pages = {
       name: 'body',
       type: 'blocks',
       blocks: [QuoteBlock],
-      admin: {
-        condition: (data) => {
-          return data.slug === 'home'
-        },
-      },
     },
     {
       name: 'slug',

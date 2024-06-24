@@ -32,6 +32,12 @@ importers:
       '@payloadcms/db-postgres':
         specifier: 3.0.0-beta.11
         version: 3.0.0-beta.11(@types/react@18.2.79)(payload@3.0.0-beta.11)(react@18.2.0)
+      '@payloadcms/live-preview':
+        specifier: 0.2.2
+        version: 0.2.2
+      '@payloadcms/live-preview-react':
+        specifier: 1.0.0-beta.2
+        version: 1.0.0-beta.2
       '@payloadcms/next':
         specifier: 3.0.0-beta.11
         version: 3.0.0-beta.11(@types/react@18.2.79)(http-status@1.6.2)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
@@ -2548,6 +2554,23 @@ packages:
       graphql-type-json: 0.3.2(graphql@16.8.1)
       payload: 3.0.0-beta.11(@swc/core@1.4.14)(@swc/types@0.1.6)
       pluralize: 8.0.0
+    dev: false
+
+  /@payloadcms/live-preview-react@1.0.0-beta.2:
+    resolution: {integrity: sha512-WfuGSD5ZYF7Pm3V4u2MQgK5Dbvyh51Rvs0FDu3Sg6x4qYetn+EpxyufSYHEq6j67CStJO/ZSvPjnwN9xkpr+7w==}
+    dependencies:
+      '@payloadcms/live-preview': 1.0.0-beta.2
+      react: 18.2.0
+    dev: false
+
+  /@payloadcms/live-preview@0.2.2:
+    resolution: {integrity: sha512-FOcg/HOIzzESjoT4vXgM7Pjd+bODodZTKR/pEJWsjLtyARd6NfF3MNWS+tdlfa3TOZrdT8WnHBAKsKyREyE3og==}
+    dev: false
+
+  /@payloadcms/live-preview@1.0.0-beta.2:
+    resolution: {integrity: sha512-6Xu1yCCH+6J5eCPCFu5YcqXJjrITKYZfpXroAJs3n44hCg+/QBynjZLeyDeZOmi+ATAepqkCcHeRZ7fI3HxiDg==}
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@payloadcms/next@3.0.0-beta.11(@types/react@18.2.79)(http-status@1.6.2)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0):

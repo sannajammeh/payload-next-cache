@@ -1,4 +1,6 @@
 import { Container } from '@/components/Container'
+import { Page } from '@/components/Pages/Page/Page'
+import Blocks from '@/components/blocks/Blocks'
 import { payloadRSC } from '@/payload.rsc'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -14,7 +16,7 @@ function slugsToPath(slugs: string[]) {
   return newSlugs.startsWith('/') ? newSlugs : `/${newSlugs}`
 }
 
-const Page = async ({ params: { slugs } }: Props) => {
+const InfoPages = async ({ params: { slugs } }: Props) => {
   const pageData = await payloadRSC.findOne({
     collection: 'pages',
     where: {
@@ -26,14 +28,7 @@ const Page = async ({ params: { slugs } }: Props) => {
 
   if (!pageData) notFound()
 
-  return (
-    <Container>
-      <h1>{pageData.title}</h1>
-      <pre>
-        <code>{JSON.stringify(pageData, null, 2)}</code>
-      </pre>
-    </Container>
-  )
+  return <Page data={pageData} />
 }
 
-export default Page
+export default InfoPages

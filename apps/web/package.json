@@ -17,6 +17,8 @@
   "dependencies": {
     "@payloadcms/db-mongodb": "3.0.0-beta.11",
     "@payloadcms/db-postgres": "3.0.0-beta.11",
+    "@payloadcms/live-preview": "0.2.2",
+    "@payloadcms/live-preview-react": "1.0.0-beta.2",
     "@payloadcms/next": "3.0.0-beta.11",
     "@payloadcms/next-cache": "workspace:*",
     "@payloadcms/plugin-nested-docs": "^1.0.12",
