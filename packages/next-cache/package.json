@@ -34,12 +34,12 @@
   "license": "ISC",
   "devDependencies": {
     "@private/typescript-config": "workspace:*",
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.2.79",
-    "bunchee": "^5.1.2",
-    "next": "14.2.1",
-    "payload": "3.0.0-beta.11",
-    "typescript": "^5.4.5"
+    "@types/node": "^20.14.8",
+    "@types/react": "^18.3.3",
+    "bunchee": "^5.2.2",
+    "next": "15.0.0-canary.42",
+    "payload": "3.0.0-beta.53",
+    "typescript": "^5.5.2"
   },
   "peerDependencies": {
     "@types/react": "^18.2.64",
